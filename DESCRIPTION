@@ -1,0 +1,18 @@
+Package: mbc
+Title: Accurate Timing Functions
+Description: Provides infrastructure to accurately measure and compare
+        the execution time of R expressions.
+Authors@R: c(
+        person("Collin", "Erickson", role=c("aut", "cre"), email="collinberickson@gmail.com")
+        person("Olaf", "Mersmann", role=c("ctb")), 
+        person("Claudia", "Beleites", role=c("ctb")),
+        person("Rainer", "Hurling", role=c("ctb")),
+        person("Ari", "Friedman", role=c("ctb")))
+License: BSD_2_clause + file LICENSE
+Imports: graphics, ggplot2, stats
+Suggests: multcomp
+ByteCompile: yes
+LazyData: yes
+Version: 0.1
+SystemRequirements: GNU Make
+NeedsCompilation: yes
