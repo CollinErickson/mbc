@@ -3,7 +3,7 @@ Title: Accurate Timing Functions
 Description: Provides infrastructure to accurately measure and compare
         the execution time of R expressions.
 Authors@R: c(
-        person("Collin", "Erickson", role=c("aut", "cre"), email="collinberickson@gmail.com")
+        person("Collin", "Erickson", role=c("aut", "cre"), email="collinberickson@gmail.com"),
         person("Olaf", "Mersmann", role=c("ctb")), 
         person("Claudia", "Beleites", role=c("ctb")),
         person("Rainer", "Hurling", role=c("ctb")),

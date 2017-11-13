@@ -111,20 +111,20 @@
 #' }
 #' @export
 #' @author Olaf Mersmann
-microbenchmark <- function(..., list=NULL,
+mbc <- function(..., list=NULL,
                            times=100L,
                            unit,
                            check=NULL,
-                           control=list()) {
+                           control=list()) { cat('running mbc2\n')
   stopifnot(times == as.integer(times))
   if (!missing(unit))
     stopifnot(is.character("unit"), length(unit) == 1L)
-  
+
   control[["warmup"]] <- coalesce(control[["warmup"]], 2^18L)
   control[["order"]] <- coalesce(control[["order"]], "random")
-  
+
   stopifnot(as.integer(control$warmup) == control$warmup)
-  
+
   exprs <- c(as.list(match.call(expand.dots = FALSE)$`...`), list)
   nm <- names(exprs)
   exprnm <- sapply(exprs, function(e) paste(deparse(e), collapse=" "))
@@ -133,20 +133,20 @@ microbenchmark <- function(..., list=NULL,
   else
     nm[nm == ""] <- exprnm[nm == ""]
   names(exprs) <- nm
-  
+
   if (!is.null(check)) {
     ## Evaluate values in parent environment
     values <- lapply(exprs, eval, parent.frame())
     ok <- check(values)
-    
+
     if (!isTRUE(ok)) {
       stop("Input expressions are not equivalent.", call. = FALSE)
     }
   }
-  
+
   ## GC first
   gc(FALSE)
-  
+
   o <- if (control$order == "random")
     sample(rep(seq_along(exprs), times=times))
   else if (control$order == "inorder")
@@ -156,14 +156,14 @@ microbenchmark <- function(..., list=NULL,
   else
     stop("Unknown ordering. Must be one of 'random', 'inorder' or 'block'.")
   exprs <- exprs[o]
-  
-  res <- .Call(do_microtiming, exprs, parent.frame(), as.integer(control$warmup))
-  
+
+  res <- .Call(do_microtiming2, exprs, parent.frame(), as.integer(control$warmup))
+
   ## Sanity check. Fail as early as possible if the results are
   ## rubbish.
   if (all(is.na(res)))
     .all_na_stop()
-  
+
   res <- data.frame(expr = factor(nm[o], levels = nm), time=res)
   class(res) <- c("microbenchmark", class(res))
   if (!missing(unit))
