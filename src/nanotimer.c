@@ -217,7 +217,7 @@ SEXP do_microtiming2(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, int giveinint) {
       } else {
         //s_ret2[i] = out_test;//diff - overhead;
         //SET_VECTOR_ELT(s_ret2, i, out_test);
-        ret[i] = 123.4;// diff - overhead + 10000;
+        ret[i] = diff - overhead;
       }
     } else if (start == end) {
       ++n_start_end_equal;
@@ -260,9 +260,18 @@ SEXP do_microtiming2(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, int giveinint) {
         "the issue further.");
   }
   //UNPROTECT(1); /* s_ret */
-  UNPROTECT(2); /* s_ret and s_ret2 */
+  //UNPROTECT(2); /* s_ret and s_ret2 */
   warning("Returning s_ret2");
-  return s_ret2;
-  return out_test;
-  return s_ret;
+  
+  // Combine run times and output to single SEXP to return
+  SEXP time_and_output;
+  PROTECT(time_and_output = allocVector(VECSXP, 2));
+  SET_VECTOR_ELT(time_and_output, 0, s_ret);
+  SET_VECTOR_ELT(time_and_output, 1, s_ret2);
+  UNPROTECT(3); /* s_ret and s_ret2 and time_and_output */
+  
+  return time_and_output;
+  //return s_ret2;
+  //return out_test;
+  //return s_ret;
 }

@@ -164,8 +164,11 @@ mbc <- function(..., list=NULL,
   if (all(is.na(res)))
     .all_na_stop()
 
-  res <- data.frame(expr = factor(nm[o], levels = nm), time=res)
-  class(res) <- c("microbenchmark", class(res))
+  browser()
+  #as.data.frame(do.call(rbind, res[[2]]))
+  #res <- data.frame(expr = factor(nm[o], levels = nm), time=res)
+  res <- data.frame(expr = factor(nm[o], levels = nm), time=res[[1]], as.data.frame(do.call(rbind, res[[2]])))
+  class(res) <- c("mbc", class(res))
   if (!missing(unit))
     attr(res, "unit") <- unit
   res
