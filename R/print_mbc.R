@@ -37,9 +37,10 @@
 #'
 #' @export
 #' @method print mbc
-#' @author Olaf Mersmann
-print.mbc <- function(x, unit, order, signif, ...) {
-  s <- summary(x, unit=unit)
+#' @author Collin Erickson
+print.mbc <- function(x, unit, order, signif, ...) {browser()
+  s_both <- summary(x, unit=unit)
+  s <- s_both[[1]]
   timing_cols <- c("min", "lq", "median", "uq", "max")
   if (!missing(signif)) {
     s[timing_cols] <- lapply(s[timing_cols], base::signif, signif)
@@ -53,4 +54,8 @@ print.mbc <- function(x, unit, order, signif, ...) {
     }
   }
   print(s, ..., row.names=FALSE)
+  
+  # Print data results
+  cat("\nOutput summary\n")
+  print(s_both[[2]][[1]])
 }

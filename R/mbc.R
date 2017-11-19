@@ -110,7 +110,7 @@
 #' microbenchmark(2 + 2, 2 + a, f(2, a), f(2, 2), check=my_check)
 #' }
 #' @export
-#' @author Olaf Mersmann
+#' @author Collin Erickson
 mbc <- function(..., list=NULL,
                            times=100L,
                            unit,
@@ -164,7 +164,7 @@ mbc <- function(..., list=NULL,
   if (all(is.na(res)))
     .all_na_stop()
 
-  browser()
+  # browser()
   #as.data.frame(do.call(rbind, res[[2]]))
   #res <- data.frame(expr = factor(nm[o], levels = nm), time=res)
   res <- data.frame(expr = factor(nm[o], levels = nm), time=res[[1]], as.data.frame(do.call(rbind, res[[2]])))

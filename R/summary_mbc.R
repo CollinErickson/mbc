@@ -60,5 +60,36 @@ summary.mbc <- function(object, unit, ...) {
       res$cld <- multcomp::cld(comp)$mcletters$monospacedLetters
     }, error=function(e) FALSE, finally=options(ops))
   }
-  res
+  
+  # Calculating summary for outputs
+  browser()
+  ocolnames <- setdiff(names(object), c("expr", "time"))
+  
+  o_agg <- lapply(ocolnames,
+         function(cname) {browser()
+           
+           temp <- aggregate(as.formula(paste(cname, "~ expr")), object,
+                            function(z) {
+                              tmp <- c(fivenum(z), mean(z), length(z))
+                              tmp[c(1, 2, 6, 3, 4, 5, 7)]
+                            })
+           temp <- cbind(temp$expr, as.data.frame(temp[[cname]]))
+           colnames(temp) <- c("expr", "min", "lq", "mean", "median", "uq", "max", "neval")
+           temp
+         }
+         )
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  # res
+  list(res, o_agg)
 }
