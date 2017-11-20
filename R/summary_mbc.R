@@ -62,11 +62,11 @@ summary.mbc <- function(object, unit, ...) {
   }
   
   # Calculating summary for outputs
-  browser()
+  # browser()
   ocolnames <- setdiff(names(object), c("expr", "time"))
   
   o_agg <- lapply(ocolnames,
-         function(cname) {browser()
+         function(cname) {#browser()
            
            temp <- aggregate(as.formula(paste(cname, "~ expr")), object,
                             function(z) {

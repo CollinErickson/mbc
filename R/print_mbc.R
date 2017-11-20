@@ -38,7 +38,7 @@
 #' @export
 #' @method print mbc
 #' @author Collin Erickson
-print.mbc <- function(x, unit, order, signif, ...) {browser()
+print.mbc <- function(x, unit, order, signif, ...) {#browser()
   s_both <- summary(x, unit=unit)
   s <- s_both[[1]]
   timing_cols <- c("min", "lq", "median", "uq", "max")

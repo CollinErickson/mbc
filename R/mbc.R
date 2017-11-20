@@ -113,6 +113,7 @@
 #' @author Collin Erickson
 mbc <- function(..., list=NULL,
                            times=100L,
+                           input,
                            unit,
                            check=NULL,
                            control=list()) { cat('running mbc2\n')
@@ -121,7 +122,8 @@ mbc <- function(..., list=NULL,
     stopifnot(is.character("unit"), length(unit) == 1L)
 
   control[["warmup"]] <- coalesce(control[["warmup"]], 2^18L)
-  control[["order"]] <- coalesce(control[["order"]], "random")
+  # control[["order"]] <- coalesce(control[["order"]], "random")
+  control[["order"]] <- coalesce(control[["order"]], "inorder") # Making default inorder in case input is given
 
   stopifnot(as.integer(control$warmup) == control$warmup)
 
@@ -146,6 +148,7 @@ mbc <- function(..., list=NULL,
 
   ## GC first
   gc(FALSE)
+  
 
   o <- if (control$order == "random")
     sample(rep(seq_along(exprs), times=times))
@@ -157,7 +160,20 @@ mbc <- function(..., list=NULL,
     stop("Unknown ordering. Must be one of 'random', 'inorder' or 'block'.")
   exprs <- exprs[o]
 
-  res <- .Call(do_microtiming2, exprs, parent.frame(), as.integer(control$warmup))
+  
+  ## Adding for mbc: eval input to create environment
+  browser()
+  if (!missing(input)) {
+    if (control$order != "inorder") {stop("Run order must be inorder when input is given")}
+    input_expr <- match.call(expand.dots = FALSE)$`input`
+    
+    # Evaluate expression times times and create separate environments to pass to dmt3
+    envs <- lapply(1:times, function(i) {tenv <- new.env(parent = parent.frame()); eval(input_expr, tenv); tenv})
+    res <- .Call(do_microtiming3, exprs, envs, as.integer(control$warmup))
+  } else {
+    # Original call
+    res <- .Call(do_microtiming2, exprs, parent.frame(), as.integer(control$warmup))
+  }
 
   ## Sanity check. Fail as early as possible if the results are
   ## rubbish.

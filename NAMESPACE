@@ -22,6 +22,7 @@ importFrom(ggplot2,stat_ydensity)
 importFrom(graphics,boxplot)
 useDynLib(mbc,do_get_nanotime)
 useDynLib(mbc,do_microtiming)
-useDynLib(mbc,do_microtiming2)
+useDynLib(mbc,do_microtiming2) # For mbc
+useDynLib(mbc,do_microtiming3) # For mbc with input (many environments)
 useDynLib(mbc,do_microtiming_precision)
 importFrom("stats", "aggregate", "fivenum", "lm")
