@@ -169,7 +169,7 @@ SEXP do_microtiming(SEXP s_exprs, SEXP s_rho, SEXP s_warmup) {
 }
 
 // For mbc, my edited version of do_microtiming
-SEXP do_microtiming2(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, int giveinint) {
+SEXP do_microtiming2(SEXP s_exprs, SEXP s_rho, SEXP s_warmup) {
   //error("Starting do_microtiming, error");
   //warning("Starting do_microtiming");
   nanotime_t start, end, overhead;
@@ -278,7 +278,7 @@ SEXP do_microtiming2(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, int giveinint) {
 
 
 // For mbc, my edited version of do_microtiming
-SEXP do_microtiming3(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, int giveinint, SEXP ord) {
+SEXP do_microtiming3(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, SEXP env_indices) {
   //error("Starting do_microtiming, error");
   //warning("Starting do_microtiming");
   nanotime_t start, end, overhead;
@@ -315,7 +315,11 @@ SEXP do_microtiming3(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, int giveinint, SEX
   for (i = 0; i < n_exprs; ++i) {
     s_expr = VECTOR_ELT(s_exprs, i);
     start = get_nanotime();
-    out_test = eval(s_expr, s_rho);
+    //out_test = eval(s_expr, s_rho);
+    // Take ith environment
+    // out_test = eval(s_expr, VECTOR_ELT(s_rho, i));
+    // out_test = eval(s_expr, VECTOR_ELT(env_indices, i));
+    out_test = eval(s_expr, VECTOR_ELT(s_rho, INTEGER(env_indices)[i]));
     //eval(s_expr, s_rho);
     end = get_nanotime();
     SET_VECTOR_ELT(s_ret2, i, out_test);

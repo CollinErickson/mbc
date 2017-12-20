@@ -150,14 +150,27 @@ mbc <- function(..., list=NULL,
   gc(FALSE)
   
 
-  o <- if (control$order == "random")
-    sample(rep(seq_along(exprs), times=times))
+  # o <- if (control$order == "random")
+  #   sample(rep(seq_along(exprs), times=times))
+  # else if (control$order == "inorder")
+  #   rep(seq_along(exprs), times=times)
+  # else if (control$order == "block")
+  #   rep(seq_along(exprs), each=times)
+  # else
+  #   stop("Unknown ordering. Must be one of 'random', 'inorder' or 'block'.")
+  # exprs <- exprs[o]
+  
+  # New version to give ordering too
+  oo <- if (control$order == "random")
+    sample(0:(length(exprs) * times - 1))
   else if (control$order == "inorder")
-    rep(seq_along(exprs), times=times)
+    0:(length(exprs) * times - 1)
   else if (control$order == "block")
-    rep(seq_along(exprs), each=times)
+    stop("Block not implemented, use 'random', or 'inorder'")
   else
     stop("Unknown ordering. Must be one of 'random', 'inorder' or 'block'.")
+  o <- oo %% length(exprs) + 1
+  env_indices <- oo %/% length(exprs)
   exprs <- exprs[o]
 
   
@@ -169,7 +182,7 @@ mbc <- function(..., list=NULL,
     
     # Evaluate expression times times and create separate environments to pass to dmt3
     envs <- lapply(1:times, function(i) {tenv <- new.env(parent = parent.frame()); eval(input_expr, tenv); tenv})
-    res <- .Call(do_microtiming3, exprs, envs, as.integer(control$warmup))
+    res <- .Call(do_microtiming3, exprs, envs, as.integer(control$warmup), env_indices)
   } else {
     # Original call
     res <- .Call(do_microtiming2, exprs, parent.frame(), as.integer(control$warmup))
