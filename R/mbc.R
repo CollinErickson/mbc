@@ -1,16 +1,12 @@
 #' @useDynLib microbenchmark do_microtiming do_microtiming_precision
 {}
 
-#' Sub-millisecond accurate timing of expression evaluation.
+#' Sub-millisecond accurate timing of expression evaluation with output summary and comparison.
 #'
-#' \code{microbenchmark} serves as a more accurate replacement of the
-#' often seen \code{system.time(replicate(1000, expr))}
-#' expression. It tries hard to accurately measure only the time it
-#' takes to evaluate \code{expr}. To achieved this, the
-#' sub-millisecond (supposedly nanosecond) accurate timing functions
-#' most modern operating systems provide are used. Additionally all
-#' evaluations of the expressions are done in C code to minimize any
-#' overhead.
+#' \code{mbc} is a modified version of the function \code{microbenchmark}
+#' from the microbenchmark R package. In addition to showing the run
+#' time summary, it also shows a summary of the output returned by
+#' the code.
 #'
 #' This function is only meant for micro-benchmarking small pieces of
 #' source code and to compare their relative performance
@@ -109,8 +105,14 @@
 #' ## Check fails
 #' microbenchmark(2 + 2, 2 + a, f(2, a), f(2, 2), check=my_check)
 #' }
+#' 
+#' ## Compute the mean of a sample of random variables with exponential distribution
+#' mbc(mean(rexp(100)))
+#' 
+#' ## Compare the mean and median of exponential random samples
+#' mbc(mean(rexp(100)))
 #' @export
-#' @author Collin Erickson
+#' @author Collin Erickson, Olaf Mersmann
 mbc <- function(..., list=NULL,
                            times=100L,
                            input,
@@ -175,7 +177,7 @@ mbc <- function(..., list=NULL,
 
   
   ## Adding for mbc: eval input to create environment
-  browser()
+  # browser()
   if (!missing(input)) {
     if (control$order != "inorder") {stop("Run order must be inorder when input is given")}
     input_expr <- match.call(expand.dots = FALSE)$`input`
