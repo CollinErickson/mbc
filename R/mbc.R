@@ -118,7 +118,7 @@ mbc <- function(..., list=NULL,
                            input,
                            unit,
                            check=NULL,
-                           control=list()) { cat('running mbc2\n')
+                           control=list()) {
   stopifnot(times == as.integer(times))
   if (!missing(unit))
     stopifnot(is.character("unit"), length(unit) == 1L)
