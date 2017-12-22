@@ -1,4 +1,4 @@
-#' @useDynLib microbenchmark do_microtiming do_microtiming_precision
+#' @useDynLib mbc do_microtiming do_microtiming_precision do_microtiming2 do_microtiming3
 {}
 
 #' Sub-millisecond accurate timing of expression evaluation with output summary and comparison.
@@ -52,6 +52,8 @@
 #' hardware.
 #' Reports of other platforms with similar problems are welcome.
 #' Please contact the package maintainer.
+#'
+#' @importFrom stats aggregate fivenum lm
 #'
 #' @param ... Expressions to benchmark.
 #' @param list  List of unevaluated expression to benchmark.

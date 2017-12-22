@@ -1,4 +1,4 @@
-#' @useDynLib microbenchmark do_microtiming do_microtiming_precision
+#' @useDynLib mbc do_microtiming do_microtiming_precision
 {}
 
 #' Sub-millisecond accurate timing of expression evaluation.

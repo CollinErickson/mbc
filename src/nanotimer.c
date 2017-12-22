@@ -169,6 +169,7 @@ SEXP do_microtiming(SEXP s_exprs, SEXP s_rho, SEXP s_warmup) {
 }
 
 // For mbc, my edited version of do_microtiming
+// [[Rcpp::export]]
 SEXP do_microtiming2(SEXP s_exprs, SEXP s_rho, SEXP s_warmup) {
   //error("Starting do_microtiming, error");
   //warning("Starting do_microtiming");
@@ -278,6 +279,7 @@ SEXP do_microtiming2(SEXP s_exprs, SEXP s_rho, SEXP s_warmup) {
 
 
 // For mbc, my edited version of do_microtiming
+// [[Rcpp::export]]
 SEXP do_microtiming3(SEXP s_exprs, SEXP s_rho, SEXP s_warmup, SEXP env_indices) {
   //error("Starting do_microtiming, error");
   //warning("Starting do_microtiming");
