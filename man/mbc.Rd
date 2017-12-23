@@ -14,6 +14,9 @@ mbc(..., list = NULL, times = 100L, input, unit, check = NULL,
 
 \item{times}{Number of times to evaluate the expression.}
 
+\item{input}{Code chunk enclosed in braces that is evaluated before each evaluation.
+Its output is kept in the environment and thus can be called in the expressions.}
+
 \item{unit}{Default unit used in \code{summary} and \code{print}.}
 
 \item{check}{Function to check if the expressions are equal. By default \code{NULL} which omits the check.}

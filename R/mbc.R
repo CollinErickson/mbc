@@ -57,6 +57,8 @@
 #'
 #' @param ... Expressions to benchmark.
 #' @param list  List of unevaluated expression to benchmark.
+#' @param input Code chunk enclosed in braces that is evaluated before each evaluation.
+#' Its output is kept in the environment and thus can be called in the expressions.
 #' @param times Number of times to evaluate the expression.
 #' @param check Function to check if the expressions are equal. By default \code{NULL} which omits the check.
 #' @param control List of control arguments. See Details.
