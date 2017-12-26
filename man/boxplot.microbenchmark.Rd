@@ -22,6 +22,10 @@
 \description{
 Boxplot of \code{microbenchmark} timings.
 }
+\examples{
+boxplot(microbenchmark(Sys.sleep(rexp(1,10000))))
+
+}
 \author{
 Olaf Mersmann
 }

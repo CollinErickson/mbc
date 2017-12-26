@@ -12,6 +12,9 @@
 #'
 #' @importFrom graphics boxplot
 #' 
+#' @examples
+#' boxplot(microbenchmark(Sys.sleep(rexp(1,10000))))
+#' 
 #' @author Olaf Mersmann
 boxplot.microbenchmark <- function(x, unit="t", log=TRUE, xlab, ylab, ...) {
   x$time <- convert_to_unit(x$time, unit)
