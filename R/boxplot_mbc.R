@@ -12,6 +12,10 @@
 #'
 #' @importFrom graphics boxplot
 #' 
+#' @examples 
+#' m1 <- mbc(sum(rexp(ceiling(100*rexp(1)))))
+#' boxplot(m1)
+#' 
 #' @author Collin Erickson, Olaf Mersmann
 boxplot.mbc <- function(x, unit="t", log=TRUE, xlab, ylab, ...) {
   x$time <- convert_to_unit(x$time, unit)
@@ -42,4 +46,7 @@ boxplot.mbc <- function(x, unit="t", log=TRUE, xlab, ylab, ...) {
   ll <- if (log) "y" else ""
   
   boxplot(time ~ expr, data=x, xlab=xlab, ylab=ylab, log=ll, ...)
+  
+  # boxplot for v1
+  boxplot(V1 ~ expr, data=x, xlab=xlab, ylab="Output 1", log=ll)
 }

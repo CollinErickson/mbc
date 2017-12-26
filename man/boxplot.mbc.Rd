@@ -22,6 +22,11 @@
 \description{
 Boxplot of \code{mbc} timings.
 }
+\examples{
+m1 <- mbc(sum(rexp(ceiling(100*rexp(1)))))
+boxplot(m1)
+
+}
 \author{
 Collin Erickson, Olaf Mersmann
 }
