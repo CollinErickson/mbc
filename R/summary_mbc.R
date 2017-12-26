@@ -18,6 +18,7 @@
 #' @return A \code{data.frame} containing the aggregated results.
 #'
 #' @seealso \code{\link{print.mbc}}
+#' @importFrom stats as.formula
 #' @export
 #' @method summary mbc
 summary.mbc <- function(object, unit, ...) {
