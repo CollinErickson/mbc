@@ -27,7 +27,7 @@ Uses ggplot2 to produce a more legible graph of microbenchmark timings
 \examples{
 library("ggplot2")
 
-tm <- microbenchmark(rchisq(100, 0),
+tm <- mbc(rchisq(100, 0),
                      rchisq(100, 1),
                      rchisq(100, 2),
                      rchisq(100, 3),

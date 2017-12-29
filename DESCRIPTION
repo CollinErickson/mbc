@@ -10,7 +10,7 @@ Authors@R: c(
         person("Ari", "Friedman", role=c("ctb")))
 License: BSD_2_clause + file LICENSE
 Imports: graphics, ggplot2, stats
-Suggests: multcomp
+Suggests: multcomp, ggpubr
 ByteCompile: yes
 LazyData: yes
 Version: 0.1
