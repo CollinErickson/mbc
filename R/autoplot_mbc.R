@@ -83,6 +83,9 @@ autoplot.mbc <- function(object, ...,
   # }
   plt2 <- plt2 + scale_y_continuous(name="V1")
   plt2 <- plt2 + ggplot2::coord_flip()
+  plt2 <- plt2 +  theme(axis.title.y=element_blank(),
+                        axis.text.y=element_blank(),
+                        axis.ticks.y=element_blank())
   plt2
   
   ggpubr::ggarrange(plt, plt2, ncol=2, nrow=1)
