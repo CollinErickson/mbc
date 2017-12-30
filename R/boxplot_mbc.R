@@ -48,5 +48,5 @@ boxplot.mbc <- function(x, unit="t", log=TRUE, xlab, ylab, ...) {
   boxplot(time ~ expr, data=x, xlab=xlab, ylab=ylab, log=ll, ...)
   
   # boxplot for v1
-  boxplot(V1 ~ expr, data=x, xlab=xlab, ylab="Output 1", log=ll)
+  boxplot(V1 ~ expr, data=x, xlab=xlab, ylab="Output 1")
 }
