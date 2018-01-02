@@ -1,0 +1,42 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# mbc
+
+The goal of mbc is to make comparisons between different code expressions.
+It builds on the R package microbenchmark, adding a comparison of
+the output provided by each expression in addition to the comparison
+of run time as given by microbenchmark.
+
+## Installation
+
+You can install mbc from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("CollinErickson/mbc")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem.
+It creates random samples of 100 exponential data points and finds the
+mean or median. The results show that the mean is 4 times faster
+(since it doesn't have to sort the values) and that the mean
+is around 1 while the median is around 0.71.
+
+```{r example}
+## basic example code
+mbc::mbc(mean(rexp(100)), median(rexp(100)))
+```
